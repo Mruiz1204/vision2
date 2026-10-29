@@ -26,6 +26,8 @@ st.markdown(
         color: #e8eef0;
         font-family: 'Inter', sans-serif;
     }
+    [data-testid="stHeader"] { background: transparent !important; }
+    [data-testid="stToolbar"] { right: 1rem; }
     .stApp, .stApp p, .stApp li, .stApp span, .stApp label,
     .stMarkdown, [data-testid="stCaptionContainer"],
     [data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] * {
