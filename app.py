@@ -10,14 +10,56 @@ def encode_image(image_file):
     return base64.b64encode(image_file.getvalue()).decode("utf-8")
 
 
-st.set_page_config(page_title="Analisis dde imagen", layout="centered", initial_sidebar_state="collapsed")
+try:
+    _icon = Image.open('logo_mr.png')
+except Exception:
+    _icon = "🖼️"
+st.set_page_config(page_title="Análisis de Imagen · Miguel Ruiz", page_icon=_icon, layout="centered", initial_sidebar_state="collapsed")
+
+# ---- Estilo personalizado: paleta azul petróleo + terracota (Miguel Ruiz) ----
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@300;400;600&display=swap');
+    .stApp {
+        background: linear-gradient(135deg, #1b3a4b 0%, #14303d 100%);
+        color: #e8eef0;
+        font-family: 'Inter', sans-serif;
+    }
+    .stApp, .stApp p, .stApp li, .stApp span, .stApp label,
+    .stMarkdown, [data-testid="stCaptionContainer"],
+    [data-testid="stWidgetLabel"], [data-testid="stWidgetLabel"] * {
+        color: #e8eef0 !important;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif !important; color: #e07a5f !important; }
+    .stTextInput input, .stTextArea textarea,
+    .stSelectbox div[data-baseweb="select"] > div, .stNumberInput input {
+        background-color: #f3f6f7 !important; color: #14303d !important;
+    }
+    input::placeholder, textarea::placeholder { color: #5c7079 !important; }
+    [data-testid="stNotification"] * { color: #14303d !important; }
+    section[data-testid="stSidebar"] { background: #12272f; }
+    section[data-testid="stSidebar"] * { color: #e8eef0 !important; }
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 { color: #e07a5f !important; }
+    .stButton>button {
+        background-color: #e07a5f; color: #fff !important; border-radius: 10px; border: none; font-weight: 600;
+    }
+    .stButton>button:hover { background-color: #c9583c; color: #fff !important; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Streamlit page setup
-st.title("Análisis de Imagen:🤖🏞️")
+st.markdown("<h2 style=\"font-family:'Montserrat', sans-serif; font-weight:700; color:#f2cc8f; margin-bottom:0;\">Miguel Ruiz</h2>", unsafe_allow_html=True)
+st.title("Análisis de Imagen 🤖🏞️")
 image = Image.open('OIG4.jpg')
 st.image(image, width=350)
 with st.sidebar:
-    st.subheader("Este Agente analiza el contenido de la imagen y responde tus preguntas.")
-ke = st.text_input('Ingresa tu Clave')
+    st.subheader("Este agente analiza el contenido de la imagen y responde tus preguntas.")
+ke = st.text_input('Ingresa tu Clave de OpenAI', type="password")
 #os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 os.environ['OPENAI_API_KEY'] = ke
 
@@ -29,7 +71,7 @@ api_key = os.environ['OPENAI_API_KEY']
 client = OpenAI(api_key=api_key)
 
 # File uploader allows user to add their own image
-uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+uploaded_file = st.file_uploader("Carga una imagen", type=["jpg", "png", "jpeg"])
 
 if uploaded_file:
     # Display the uploaded image
